@@ -4,10 +4,14 @@ from django.contrib.auth.views import LoginView, PasswordResetView, PasswordChan
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views import View
-from django.contrib.auth.decorators import login_required
+from django.views.generic import FormView
+from django.contrib.auth import authenticate,login
 
 from .forms import RegisterForm, LoginForm,RegisterCustomerForm
 from .models import Customer
+from django.conf import settings
+from django.db import connections
+
 
 
 def home(request):
@@ -35,7 +39,15 @@ class RegisterView(View):
         form = self.form_class(request.POST)
 
         if form.is_valid():
-            form.save()
+            if settings.SQLI:
+                with connections['default'].cursor() as cursor:
+                    first_name = form.data.get('first_name')
+                    query = f"SELECT * FROM auth_user WHERE first_name='{first_name}'"
+                    cursor.execute(query)
+                    response = cursor.fetchall()
+                    print(str(response))
+            else:
+                form.save()
 
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}')
@@ -48,7 +60,7 @@ class RegisterView(View):
 # Class based view that extends from the built in login view to add a remember me functionality
 class CustomLoginView(LoginView):
     form_class = LoginForm
-
+    
     def form_valid(self, form):
         remember_me = form.cleaned_data.get('remember_me')
 
@@ -96,7 +108,15 @@ class RegisterCustomerView(View):
             Email = form.cleaned_data.get('email')
             Phone = form.cleaned_data.get('phone')
             my_instance = Customer(name=Name,email=Email,phone=Phone)
-            my_instance.save(using='default')
+            if settings.SQLI:
+                with connections['default'].cursor() as cursor:
+                    name = form.data.get('name')
+                    query = f"SELECT * FROM users_customer WHERE name='{name}'"
+                    cursor.execute(query)
+                    response = cursor.fetchall()
+                    print(str(response))
+            else:
+                my_instance.save(using='default')
             messages.success(request, f'Account created for {Name}')
         return render(request, self.template_name, {'form': form})
 
