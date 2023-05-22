@@ -1,7 +1,5 @@
 # ComunicationLTD
 
-
-
 1) To create a folder named "securityCommunicationLTD":
 
 mkdir securityCommunicationLTD
