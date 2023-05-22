@@ -6,7 +6,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.views import View
 from django.views.generic import FormView
 from django.contrib.auth import authenticate,login
-
+from django.db import connection
 from .forms import RegisterForm, LoginForm,RegisterCustomerForm
 from .models import Customer
 from django.conf import settings

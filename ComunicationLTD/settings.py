@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'users.apps.UserConfig',
     'django_password_validators',
     'django_password_validators.password_history',
+     'sslserver',
 ]
 
 MIDDLEWARE = [
@@ -187,3 +188,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SQLI = False
 XSS = False
+
+SSL_CERTIFICATE = 'C:/Users/Eden/Desktop/sec/ComunicationLTD/localhost.crt'
+SSL_PRIVATE_KEY = 'C:/Users/Eden/Desktop/sec/ComunicationLTD/localhost.key'
+
