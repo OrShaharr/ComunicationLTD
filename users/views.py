@@ -59,8 +59,34 @@ class RegisterView(View):
 
 # Class based view that extends from the built in login view to add a remember me functionality
 class CustomLoginView(LoginView):
-    form_class = LoginForm
-    
+    template_name = 'users/login.html'
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('/')
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if settings.SQLI:
+            with connections['default'].cursor() as cursor:
+                    query = f"SELECT * FROM auth_user WHERE username='{username}'"
+                    cursor.execute(query)
+                    response = cursor.fetchall()
+                    print(str(response))
+                    return render(request, self.template_name, {'form': form})
+        else:
+            if user is not None:
+                login(request, user)
+                return redirect('/')
+            else:
+                messages.error(request, f'Cannot find user or missmatched password')
+                return render(request, self.template_name, {'form': form})
+
+    """
     def form_valid(self, form):
         remember_me = form.cleaned_data.get('remember_me')
 
@@ -73,6 +99,10 @@ class CustomLoginView(LoginView):
 
         # else browser session will be as long as the session cookie time "SESSION_COOKIE_AGE" defined in settings.py
         return super(CustomLoginView, self).form_valid(form)
+    
+    
+    """
+    
 
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):

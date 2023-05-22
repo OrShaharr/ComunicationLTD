@@ -189,6 +189,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SQLI = False
 XSS = False
 
-SSL_CERTIFICATE = 'C:/Users/Eden/Desktop/sec/ComunicationLTD/localhost.crt'
-SSL_PRIVATE_KEY = 'C:/Users/Eden/Desktop/sec/ComunicationLTD/localhost.key'
+SSL_CERTIFICATE = 'E:/coding projects 2/computer security project/ComunicationLTD2/localhost.crt'
+SSL_PRIVATE_KEY = 'E:/coding projects 2/computer security project/ComunicationLTD2/localhost.key'
 
