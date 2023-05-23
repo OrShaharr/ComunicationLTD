@@ -1,55 +1,75 @@
 # ComunicationLTD
 
-  1) To create a folder named "securityCommunicationLTD":
 
-			mkdir securityCommunicationLTD
+## Installation
 
-  2) Change the current working directory to "securityCommunicationLTD":
+1) Create a folder named "securityCommunicationLTD"-
 
-			cd securityCommunicationLTD
+```mkdir securityCommunicationLTD```
 
-	3) Clone the repository from GitHub:
+2) Change the current working directory to "securityCommunicationLTD"-
 
- 		https://github.com/OrShaharr/ComunicationLTD.git
+```cd securityCommunicationLTD```
 
-  4) Change to the following path: 
+3) Clone the repository from GitHub-
+
+```git clone https://github.com/OrShaharr/ComunicationLTD.git```
+
+4) Change to the following path-
      
-		 C:\Users\{YOUR USER NAME}\Desktop\securityCommunicationLTD and create a Python virtual environment:
+```cd C:\Users\{YOUR USER NAME}\Desktop\securityCommunicationLTD```
 
-				python -m venv env
-				env\Scripts\activate
+5) Create a Python virtual environment-
 
-    6) Install all Django framework dependencies:
-				pip install -r requirements.txt
+```python -m venv env```
 
 
-		7) Install the django-sslserver package:
+```env\Scripts\activate```
 
-			 pip install django-sslserver
+6) Install all Django framework dependencies-
+   		
+```pip install -r requirements.txt```
 
-		8) Navigate to the "settings.py" file and update the following paths:
-			 SSL_CERTIFICATE = 'C:\Users\{YOUR USER NAME}\Desktop\sec\ComunicationLTD\localhost.crt'
+7) Install the django-sslserver package-
 
-			 SSL_PRIVATE_KEY = 'C:\Users\{YOUR USER NAME}\Desktop\securityCommunicationLTD\ComunicationLTD\localhost.key'
+```pip install django-sslserver```
 
-		9) Change to the following path: C:\Users\{YOUR USER NAME}\Desktop\securityCommunicationLTD\ComunicationLTD and bring up the server: 
+8) Navigate to the "settings.py" file and update the following paths using your favorite text editor-
+			
+```SSL_CERTIFICATE = 'C:\Users\{YOUR USER NAME}\Desktop\sec\ComunicationLTD\localhost.crt'```
 
- 				python manage.py runsslserver
+```SSL_PRIVATE_KEY = 'C:\Users\{YOUR USER NAME}\Desktop\securityCommunicationLTD\ComunicationLTD\localhost.key'```
 
+9) Back in the terminal, Change to the following path-
 
-		10) To perform an XSS attack:
-				a) Navigate to the "settings.py" file.
-				b) Scroll to the bottom of the file.
-				c) Change XSS = FALSE to XSS = TRUE.
-				d) Create a user.
-				e) Log in to the created user.
-				f) Navigate to https://localhost:8000/customer_list/.
+ ```C:\Users\{YOUR USER NAME}\Desktop\securityCommunicationLTD\ComunicationLTD ```
 
-		11) To perform an SQLi attack:
-				a) Navigate to the "settings.py" file.
-				b) Scroll to the bottom of the file.
-				c) Change SQLI = False to SQLI = False.
+10) Turn on the server-
+
+```python manage.py runsslserver```
+
+11) You can now navigate on your browser to ```https://localhost:8000``` to access the website
 
 
+## Attacks Flags
+
+### To perform an XSS attack-
+
+1. Navigate to the "settings.py" file
+2. Scroll to the bottom of the file
+3. Change ```XSS = FALSE``` to ```XSS = TRUE```
+4. Create a user
+5. Log in to the created user
+6. Navigate to Customers list via button
+
+###  To perform an SQLi attack-
+
+1. Navigate to the "settings.py" file
+2. Scroll to the bottom of the file
+3. Change ```SQLI = False``` to ```SQLI = False```
+4. you can now try the SQLi on the Register, Login or Customers registration screens
+
+
+* You will see the output of the attacks on your terminal
 
                               
